@@ -10,6 +10,8 @@ size = Vector2(8, 8)
 radius = 44.0
 
 [node name="Player" type="Area2D"]
+z_index = 1
+collision_layer = 2
 script = ExtResource("1_uwt4w")
 
 [node name="Sprite" type="Sprite2D" parent="."]
@@ -28,8 +30,12 @@ position = Vector2(4, 4)
 target_position = Vector2(0, 8)
 
 [node name="VisionCone" type="Area2D" parent="."]
-visible = false
+collision_layer = 32
+collision_mask = 60
 
 [node name="Collider" type="CollisionShape2D" parent="VisionCone"]
 position = Vector2(4, 4)
 shape = SubResource("CircleShape2D_wniaq")
+
+[connection signal="body_shape_entered" from="VisionCone" to="." method="_on_vision_cone_body_shape_entered"]
+[connection signal="body_shape_exited" from="VisionCone" to="." method="_on_vision_cone_body_shape_exited"]
