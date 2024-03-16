@@ -1,9 +1,22 @@
-extends Entity
+extends Area2D
 
 @onready var ray = $PhysicsRay
 
-func _ready():
-	pass
+var tile_size = 8
+var animation_speed = 6
+var moving = false
+
+var inputs = {"right": Vector2.RIGHT,
+			"left": Vector2.LEFT,
+			"up": Vector2.UP,
+			"down": Vector2.DOWN}
+
+func movement_tween(dir):
+	var tween = create_tween()
+	tween.tween_property(self, "position", position + inputs[dir] * tile_size, 1.0/animation_speed).set_trans(Tween.TRANS_SINE)
+	moving = true
+	await tween.finished
+	moving = false
 
 func _physics_process(delta):
 	for dir in inputs.keys():
@@ -31,12 +44,8 @@ func _process(delta):
 	if Input.is_action_just_pressed("restart"):
 		get_tree().reload_current_scene()
 
-func _on_area_entered(area):
-	pass
-
 func kill():
 	call_deferred("queue_free")
-
 
 func _on_vision_cone_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
 	if body is TileMap:
@@ -47,3 +56,11 @@ func _on_vision_cone_body_shape_exited(body_rid, body, body_shape_index, local_s
 	pass#if body is TileMap:
 		#var cell_pos = body.get_coords_for_body_rid(body_rid)
 		#body.set_cell(0, cell_pos, 0, Vector2(1, 6))
+
+func _on_vision_cone_area_entered(area):
+	if area is Entity:
+		area.change_visibility()
+
+func _on_area_entered(area):
+	if area is Pickup:
+		area.collect()

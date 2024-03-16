@@ -1,18 +1,10 @@
 extends Area2D
 class_name Entity
 
-var tile_size = 8
-var animation_speed = 6
-var moving = false
+@onready var sprite = $Sprite
 
-var inputs = {"right": Vector2.RIGHT,
-			"left": Vector2.LEFT,
-			"up": Vector2.UP,
-			"down": Vector2.DOWN}
+func _ready():
+	sprite.visible = false
 
-func movement_tween(dir):
-	var tween = create_tween()
-	tween.tween_property(self, "position", position + inputs[dir] * tile_size, 1.0/animation_speed).set_trans(Tween.TRANS_SINE)
-	moving = true
-	await tween.finished
-	moving = false
+func change_visibility():
+	sprite.visible = true

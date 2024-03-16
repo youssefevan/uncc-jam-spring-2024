@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://dgbnq5wa4nybi"]
+
+[ext_resource type="Texture2D" uid="uid://dohi4lypfryv7" path="res://sprites/tilemap.png" id="1_1wilb"]
+[ext_resource type="Script" path="res://scripts/entities/pickups/coin.gd" id="1_bs61x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_elfvl"]
+size = Vector2(2, 2)
+
+[node name="Coin" type="Area2D"]
+collision_layer = 8
+collision_mask = 34
+script = ExtResource("1_bs61x")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(4, 4)
+texture = ExtResource("1_1wilb")
+region_enabled = true
+region_rect = Rect2(56, 32, 8, 8)
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2(4, 4)
+shape = SubResource("RectangleShape2D_elfvl")

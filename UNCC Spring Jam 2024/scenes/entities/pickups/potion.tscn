@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://vsckovnmi7rx"]
+
+[ext_resource type="Script" path="res://scripts/entities/pickups/potion.gd" id="1_h3jv8"]
+[ext_resource type="Texture2D" uid="uid://dohi4lypfryv7" path="res://sprites/tilemap.png" id="1_jie6e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4jdv"]
+size = Vector2(2, 2)
+
+[node name="Potion" type="Area2D"]
+collision_layer = 8
+collision_mask = 34
+script = ExtResource("1_h3jv8")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(4, 4)
+texture = ExtResource("1_jie6e")
+region_enabled = true
+region_rect = Rect2(32, 48, 8, 8)
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2(4, 4)
+shape = SubResource("RectangleShape2D_g4jdv")

@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dhq8l3qobjifc"]
+
+[ext_resource type="Texture2D" uid="uid://dohi4lypfryv7" path="res://sprites/tilemap.png" id="1_c2r45"]
+[ext_resource type="Script" path="res://scripts/entities/enemy.gd" id="1_x01tq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jlrpj"]
+size = Vector2(2, 2)
+
+[node name="Enemy" type="Area2D"]
+script = ExtResource("1_x01tq")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(4, 4)
+texture = ExtResource("1_c2r45")
+region_enabled = true
+region_rect = Rect2(40, 32, 8, 8)
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2(4, 4)
+shape = SubResource("RectangleShape2D_jlrpj")
