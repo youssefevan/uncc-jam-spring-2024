@@ -8,8 +8,9 @@ const DIRECTIONS = [
 	Vector2.DOWN
 ]
 
-const turn_chance = 0.25
-const max_steps_since_turn = 16
+#const turn_chance = 0.25
+const room_change = 0.5
+const max_steps_since_turn = 8
 
 var position = Vector2.ZERO
 var direction = Vector2.RIGHT
@@ -30,8 +31,9 @@ func _init(starting_position, new_borders):
 	
 
 func walk(steps):
+	create_room(position)
 	for step in steps:
-		if randf() <= turn_chance or steps_since_turn >= max_steps_since_turn:
+		if steps_since_turn >= max_steps_since_turn:
 			change_direction()
 		
 		if step():
@@ -53,6 +55,9 @@ func step():
 		return false
 
 func change_direction():
+	if randi_range(0, 1) == 1:
+		create_room(position)
+	
 	steps_since_turn = 0
 	
 	var directions = DIRECTIONS.duplicate()
@@ -67,4 +72,16 @@ func change_direction():
 	while not borders.has_point(position + direction):
 		# pick next direction in list if top result is outside of the borders
 		direction = directions.pop_front()
+
+func create_room(position):
+	var min_size = 2
+	var max_size = 6
+	var size = Vector2(randi_range(min_size, max_size), randi_range(min_size, max_size))
 	
+	var top_left_corner = (position - size/2).ceil()
+	
+	for y in size.y:
+		for x in size.x:
+			var new_step = top_left_corner + Vector2(x, y)
+			if borders.has_point(new_step):
+				step_history.append(new_step)
