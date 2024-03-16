@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://c2ffjbw6h1drn"]
+
+[ext_resource type="Texture2D" uid="uid://dohi4lypfryv7" path="res://sprites/tilemap.png" id="1_60w5q"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_uwt4w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yixlk"]
+size = Vector2(8, 8)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wniaq"]
+radius = 44.0
+
+[node name="Player" type="Area2D"]
+script = ExtResource("1_uwt4w")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(4, 4)
+texture = ExtResource("1_60w5q")
+hframes = 8
+vframes = 8
+frame = 36
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2(4, 4)
+shape = SubResource("RectangleShape2D_yixlk")
+
+[node name="PhysicsRay" type="RayCast2D" parent="."]
+position = Vector2(4, 4)
+target_position = Vector2(0, 8)
+
+[node name="VisionCone" type="Area2D" parent="."]
+visible = false
+
+[node name="Collider" type="CollisionShape2D" parent="VisionCone"]
+position = Vector2(4, 4)
+shape = SubResource("CircleShape2D_wniaq")
