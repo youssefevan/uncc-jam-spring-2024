@@ -21,6 +21,7 @@ func _on_area_entered(area):
 
 func hit():
 	$Animator.play("hit")
+	dir = Vector2.ZERO
 
 func _on_animator_animation_finished(anim_name):
 	if anim_name == "hit":
