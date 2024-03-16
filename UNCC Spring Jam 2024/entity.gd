@@ -2,7 +2,7 @@ extends Area2D
 class_name Entity
 
 var tile_size = 8
-var animation_speed = 10
+var animation_speed = 6
 var moving = false
 
 var inputs = {"right": Vector2.RIGHT,

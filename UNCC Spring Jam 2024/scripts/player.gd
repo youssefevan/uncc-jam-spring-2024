@@ -5,10 +5,15 @@ extends Entity
 func _ready():
 	pass
 
-func _unhandled_input(event):
+func _physics_process(delta):
 	for dir in inputs.keys():
-		if event.is_action_pressed(dir) and moving == false:
+		if Input.is_action_pressed(dir) and moving == false:
 			move(dir)
+
+#func _unhandled_input(event):
+	#for dir in inputs.keys():
+		#if event.is_action_pressed(dir) and moving == false:
+			#move(dir)
 
 func move(dir):
 	ray.target_position = inputs[dir] * tile_size
@@ -39,6 +44,6 @@ func _on_vision_cone_body_shape_entered(body_rid, body, body_shape_index, local_
 		body.set_cell(0, cell_pos, 0, Vector2(2, 5))
 
 func _on_vision_cone_body_shape_exited(body_rid, body, body_shape_index, local_shape_index):
-	if body is TileMap:
-		var cell_pos = body.get_coords_for_body_rid(body_rid)
-		body.set_cell(0, cell_pos, 0, Vector2(1, 6))
+	pass#if body is TileMap:
+		#var cell_pos = body.get_coords_for_body_rid(body_rid)
+		#body.set_cell(0, cell_pos, 0, Vector2(1, 6))
