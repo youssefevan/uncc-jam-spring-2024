@@ -1,10 +1,13 @@
 extends Area2D
 
+signal new_turn
+
 @onready var ray = $PhysicsRay
 
 var tile_size = 8
 var animation_speed = 6
 var moving = false
+var enemy_turn = false
 
 var inputs = {"right": Vector2.RIGHT,
 			"left": Vector2.LEFT,
@@ -14,6 +17,9 @@ var inputs = {"right": Vector2.RIGHT,
 func movement_tween(dir):
 	var tween = create_tween()
 	tween.tween_property(self, "position", position + inputs[dir] * tile_size, 1.0/animation_speed).set_trans(Tween.TRANS_SINE)
+	enemy_turn = !enemy_turn
+	if enemy_turn:
+		emit_signal("new_turn")
 	moving = true
 	await tween.finished
 	moving = false
@@ -60,6 +66,9 @@ func _on_vision_cone_body_shape_exited(body_rid, body, body_shape_index, local_s
 func _on_vision_cone_area_entered(area):
 	if area is Entity:
 		area.change_visibility()
+		
+		if area is Enemy:
+			area.sleep = false
 
 func _on_area_entered(area):
 	if area is Pickup:

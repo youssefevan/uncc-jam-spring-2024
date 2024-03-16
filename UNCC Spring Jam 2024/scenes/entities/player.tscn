@@ -9,7 +9,7 @@ size = Vector2(8, 8)
 [sub_resource type="CircleShape2D" id="CircleShape2D_wniaq"]
 radius = 44.0
 
-[node name="Player" type="Area2D"]
+[node name="Player" type="Area2D" groups=["Player"]]
 z_index = 1
 collision_layer = 2
 collision_mask = 25

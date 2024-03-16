@@ -5,6 +5,7 @@ const exit_scene = preload("res://scenes/entities/exit.tscn")
 const key_scene = preload("res://scenes/entities/pickups/key.tscn")
 const potion_scene = preload("res://scenes/entities/pickups/potion.tscn")
 const coin_scene = preload("res://scenes/entities/pickups/coin.tscn")
+const enemy_scene = preload("res://scenes/entities/enemy.tscn")
 
 const grid_size = 8
 
@@ -60,3 +61,13 @@ func generate_level():
 			add_child(coin)
 			coin.position = room["position"] * grid_size
 			used_positions.append(coin.position)
+	
+	# spawn enemy
+	for room in walker.rooms:
+		if room["size"].x == 4 or room["size"].x == 4:
+			if room["position"] * grid_size not in used_positions:
+				var enemy = enemy_scene.instantiate()
+				add_child(enemy)
+				enemy.position = room["position"] * grid_size
+				enemy.setup_grid(tile_map)
+				used_positions.append(enemy.position)
