@@ -5,10 +5,15 @@ signal new_turn(enemy_turn)
 
 @onready var ray = $PhysicsRay
 
+var attack_scene = preload("res://scenes/attacks/projectile_attack.tscn")
+
 var tile_size = 8
 var animation_speed = 6
 var moving = false
 var enemy_turn = false
+
+var has_attack := true
+var last_move = Vector2.RIGHT
 
 var inputs = {"right": Vector2.RIGHT,
 			"left": Vector2.LEFT,
@@ -19,6 +24,7 @@ func movement_tween(dir):
 	var tween = create_tween()
 	tween.tween_property(self, "position", position + inputs[dir] * tile_size, 1.0/animation_speed).set_trans(Tween.TRANS_SINE)
 	enemy_turn = !enemy_turn
+	last_move = inputs[dir]
 	emit_signal("new_turn", enemy_turn)
 	moving = true
 	await tween.finished
@@ -29,10 +35,9 @@ func _physics_process(delta):
 		if Input.is_action_pressed(dir) and moving == false:
 			move(dir)
 
-#func _unhandled_input(event):
-	#for dir in inputs.keys():
-		#if event.is_action_pressed(dir) and moving == false:
-			#move(dir)
+func _unhandled_input(event):
+	if event.is_action_pressed("attack") and moving == false:
+		create_attack()
 
 func move(dir):
 	ray.target_position = inputs[dir] * tile_size
@@ -76,3 +81,9 @@ func _on_area_entered(area):
 	
 	if area is Attack:
 		print("hit")
+
+func create_attack():
+	var attack = attack_scene.instantiate()
+	get_tree().get_root().add_child(attack)
+	attack.player_info(self, last_move)
+	attack.global_position = global_position + last_move * tile_size
