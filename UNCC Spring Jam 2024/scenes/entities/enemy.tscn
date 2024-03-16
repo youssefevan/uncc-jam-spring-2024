@@ -11,7 +11,7 @@ radius = 5.0
 
 [node name="Enemy" type="Area2D" groups=["Enemy"]]
 collision_layer = 4
-collision_mask = 34
+collision_mask = 98
 script = ExtResource("1_x01tq")
 
 [node name="Sprite" type="Sprite2D" parent="."]
@@ -29,5 +29,6 @@ collision_mask = 2
 [node name="Collider" type="CollisionShape2D" parent="PlayerDetection"]
 shape = SubResource("CircleShape2D_vt5ht")
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_entered" from="PlayerDetection" to="." method="_on_player_detection_area_entered"]
 [connection signal="area_exited" from="PlayerDetection" to="." method="_on_player_detection_area_exited"]

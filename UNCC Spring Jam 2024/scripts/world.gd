@@ -56,7 +56,7 @@ func generate_level():
 	
 	# spawn coin
 	for room in walker.rooms:
-		if room["size"].x == 2 and room["position"] * grid_size not in used_positions:
+		if room["size"].x == 2 and room["size"].y <= 3 and room["position"] * grid_size not in used_positions:
 			var coin = coin_scene.instantiate()
 			add_child(coin)
 			coin.position = room["position"] * grid_size
