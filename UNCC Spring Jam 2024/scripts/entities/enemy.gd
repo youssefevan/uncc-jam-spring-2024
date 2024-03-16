@@ -1,6 +1,8 @@
 extends Entity
 class_name Enemy
 
+var melee_attack_scene = preload("res://scenes/attacks/melee_attack.tscn")
+
 var grid_size = 8
 var animation_speed = 6
 
@@ -11,6 +13,11 @@ var tile_map
 
 var setup = false
 var sleep = true
+var take_turn = false
+
+var path
+
+var player_in_range
 
 func _ready():
 	super._ready()
@@ -52,20 +59,41 @@ func move():
 			continue
 		
 		occupied_positions.append(tile_map.local_to_map(i.global_position))
+		if i.path and not i.path.is_empty():
+			occupied_positions.append(i.path[0])
 	
 	for i in occupied_positions:
 		astar_grid.set_point_solid(i)
 	
-	var path = astar_grid.get_id_path(tile_map.local_to_map(global_position), tile_map.local_to_map(player.global_position))
+	path = astar_grid.get_id_path(tile_map.local_to_map(global_position), tile_map.local_to_map(player.global_position))
 	
 	for i in occupied_positions:
 		astar_grid.set_point_solid(i, false)
 	
 	path.pop_front()
 	
-	if path.size() > 0:
-		movement_tween(tile_map.map_to_local(path[0]))
+	if player_in_range and sleep == false:
+		attack()
+	elif path.size() > 0:
+		if take_turn and sleep == false:
+			movement_tween(tile_map.map_to_local(path[0]))
 
-func new_turn():
+func new_turn(enemy_turn):
+	take_turn = enemy_turn
 	if setup == true and sleep == false:
 		move()
+
+func attack():
+	if setup == true and sleep == false:
+		var attack = melee_attack_scene.instantiate()
+		add_child(attack)
+		attack.global_position = player.global_position
+
+
+func _on_player_detection_area_entered(area):
+	if area is Player:
+		player_in_range = true
+
+func _on_player_detection_area_exited(area):
+	if area is Player:
+		player_in_range = false

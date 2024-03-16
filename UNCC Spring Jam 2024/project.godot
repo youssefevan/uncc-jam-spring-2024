@@ -59,6 +59,7 @@ restart={
 2d_physics/layer_4="pickup"
 2d_physics/layer_5="exit"
 2d_physics/layer_6="vision"
+2d_physics/layer_7="attack"
 
 [rendering]
 

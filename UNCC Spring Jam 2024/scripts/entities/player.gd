@@ -1,6 +1,7 @@
 extends Area2D
+class_name Player
 
-signal new_turn
+signal new_turn(enemy_turn)
 
 @onready var ray = $PhysicsRay
 
@@ -18,8 +19,7 @@ func movement_tween(dir):
 	var tween = create_tween()
 	tween.tween_property(self, "position", position + inputs[dir] * tile_size, 1.0/animation_speed).set_trans(Tween.TRANS_SINE)
 	enemy_turn = !enemy_turn
-	if enemy_turn:
-		emit_signal("new_turn")
+	emit_signal("new_turn", enemy_turn)
 	moving = true
 	await tween.finished
 	moving = false
@@ -73,3 +73,6 @@ func _on_vision_cone_area_entered(area):
 func _on_area_entered(area):
 	if area is Pickup:
 		area.collect()
+	
+	if area is Attack:
+		print("hit")
