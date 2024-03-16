@@ -10,7 +10,7 @@ func _ready():
 
 func generate_level():
 	var walker_starting_position = Vector2(13, 13)
-	var walker_steps = 256
+	var walker_steps = 512
 	# create new walker, get map, delete walker
 	var walker = Walker.new(walker_starting_position, borders)
 	var map = walker.walk(walker_steps)
