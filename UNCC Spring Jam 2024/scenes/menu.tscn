@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bxvfxgarp2b8a"]
+[gd_scene load_steps=9 format=3 uid="uid://bxvfxgarp2b8a"]
 
 [ext_resource type="Texture2D" uid="uid://bp4erc4ml58pk" path="res://sprites/bg.png" id="1_m064r"]
 [ext_resource type="FontFile" uid="uid://bx5ihofp77q4g" path="res://CCFONT.TTF" id="1_rlvek"]
@@ -6,44 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://da0cs5cv0dogq" path="res://sprites/pyramid.png" id="2_hcnag"]
 [ext_resource type="Texture2D" uid="uid://dohi4lypfryv7" path="res://sprites/tilemap.png" id="3_mgqpg"]
 [ext_resource type="Script" path="res://scripts/play.gd" id="5_2wat6"]
+[ext_resource type="Theme" uid="uid://b2aufwxl352ci" path="res://menu.tres" id="5_ce7ij"]
 [ext_resource type="PackedScene" uid="uid://dqddhfpaxo71x" path="res://scenes/tile_map.tscn" id="5_qu5nm"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m3ekm"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1xq3h"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4u1ad"]
-bg_color = Color(0, 0, 0, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.976471, 0.14902, 0.447059, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_18e30"]
-bg_color = Color(0, 0, 0, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.458824, 0.443137, 0.368627, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8e1d5"]
-bg_color = Color(0, 0, 0, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.972549, 0.972549, 0.94902, 1)
-
-[sub_resource type="Theme" id="Theme_cpnt0"]
-Button/colors/font_color = Color(0.972549, 0.972549, 0.94902, 1)
-Button/fonts/font = ExtResource("1_rlvek")
-Button/styles/disabled = SubResource("StyleBoxEmpty_m3ekm")
-Button/styles/focus = SubResource("StyleBoxEmpty_1xq3h")
-Button/styles/hover = SubResource("StyleBoxFlat_4u1ad")
-Button/styles/normal = SubResource("StyleBoxFlat_18e30")
-Button/styles/pressed = SubResource("StyleBoxFlat_8e1d5")
 
 [node name="Menu" type="Node2D"]
 
@@ -108,7 +72,7 @@ offset_left = 96.0
 offset_top = 115.0
 offset_right = 160.0
 offset_bottom = 148.0
-theme = SubResource("Theme_cpnt0")
+theme = ExtResource("5_ce7ij")
 text = "Play"
 script = ExtResource("5_2wat6")
 

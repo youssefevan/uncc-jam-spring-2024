@@ -6,7 +6,7 @@ func _ready():
 	
 	for i in $Pyramid.get_children():
 		i.visible = false
-	
+		
 	animate()
 
 func animate():
@@ -30,6 +30,7 @@ func animate():
 	$Pyramid.get_children()[Global.level-1].visible = false
 	await get_tree().create_timer(0.3).timeout
 	$Pyramid.get_children()[Global.level-1].visible = true
-	await get_tree().create_timer(2).timeout
 	
+	await get_tree().create_timer(2).timeout
 	get_tree().change_scene_to_file("res://scenes/world.tscn")
+

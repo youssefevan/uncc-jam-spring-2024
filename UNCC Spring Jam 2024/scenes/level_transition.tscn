@@ -22,7 +22,7 @@ texture = ExtResource("3_8wjvk")
 position = Vector2(128, 146)
 texture = ExtResource("3_mv8p3")
 
-[node name="Sprite2D2" type="Sprite2D" parent="."]
+[node name="PyramidBg" type="Sprite2D" parent="."]
 position = Vector2(128, 128)
 texture = ExtResource("4_kg8ku")
 

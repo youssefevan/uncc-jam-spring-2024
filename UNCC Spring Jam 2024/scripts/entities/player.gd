@@ -32,6 +32,7 @@ func _ready():
 	has_attack = Global.player_has_attack
 	has_key = false
 	$CanvasLayer/Control/HealthText.text = str(health)
+	$CanvasLayer/Control/CoinsText.text = str(coins)
 	if has_attack:
 		$Sprite.frame = 54
 	else:
@@ -109,6 +110,10 @@ func _on_area_entered(area):
 				health += 1
 				$CanvasLayer/Control/HealthText.text = str(health)
 				area.collect()
+		elif area is Coin:
+			coins += 1
+			$CanvasLayer/Control/CoinsText.text = str(coins)
+			area.collect()
 		else:
 			area.collect()
 	
@@ -117,11 +122,16 @@ func _on_area_entered(area):
 	
 	if area is Exit:
 		if area.locked == false:
-			Global.player_health = health
-			Global.player_coins = coins
-			Global.player_has_attack = has_attack
-			
-			get_tree().change_scene_to_file("res://scenes/level_transition.tscn")
+			next_level()
+
+func next_level():
+	Global.player_health = health
+	Global.player_coins = coins
+	Global.player_has_attack = has_attack
+	if Global.level < 12:
+		get_tree().change_scene_to_file("res://scenes/level_transition.tscn")
+	else:
+		get_tree().change_scene_to_file("res://scenes/win_screen.tscn")
 
 func create_attack():
 	has_attack = false
@@ -150,6 +160,10 @@ func die():
 	Global.player_coins = 0
 	Global.level = 0
 	
+	await get_tree().create_timer(0.3).timeout
+	$CanvasLayer/Control/Dead.visible = true
+	await get_tree().create_timer(0.3).timeout
+	$CanvasLayer/Control/Dead.visible = false
 	await get_tree().create_timer(0.3).timeout
 	$CanvasLayer/Control/Dead.visible = true
 	await get_tree().create_timer(0.3).timeout
