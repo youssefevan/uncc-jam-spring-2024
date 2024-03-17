@@ -65,7 +65,7 @@ offset_top = 4.0
 offset_right = 46.0
 offset_bottom = 20.0
 theme_override_fonts/font = ExtResource("3_eia0n")
-text = "1"
+text = "0"
 
 [node name="Coins" type="Sprite2D" parent="CanvasLayer/Control"]
 position = Vector2(52, 12)
@@ -79,10 +79,11 @@ frame = 39
 layout_mode = 0
 offset_left = 64.0
 offset_top = 4.0
-offset_right = 100.0
+offset_right = 120.0
 offset_bottom = 20.0
 theme_override_fonts/font = ExtResource("3_eia0n")
-text = "1"
+text = "0
+"
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_entered" from="VisionCone" to="." method="_on_vision_cone_area_entered"]

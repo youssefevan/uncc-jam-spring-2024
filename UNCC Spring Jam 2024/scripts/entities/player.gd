@@ -27,6 +27,10 @@ func _ready():
 	has_attack = Global.player_has_attack
 	has_key = false
 	$CanvasLayer/Control/HealthText.text = str(health)
+	if has_attack:
+		$Sprite.frame = 54
+	else:
+		$Sprite.frame = 36
 
 var inputs = {"right": Vector2.RIGHT,
 			"left": Vector2.LEFT,
@@ -109,12 +113,14 @@ func _on_area_entered(area):
 			Global.player_health = health
 			Global.player_coins = coins
 			Global.player_has_attack = has_attack
+			
+			get_tree().change_scene_to_file("res://scenes/level_transition.tscn")
 
 func create_attack():
 	has_attack = false
 	$Sprite.frame = 36
 	var attack = attack_scene.instantiate()
-	get_tree().get_root().add_child(attack)
+	get_parent().add_child(attack)
 	attack.player_info(self, last_move)
 	attack.global_position = global_position + last_move * tile_size
 
