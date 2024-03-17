@@ -62,12 +62,12 @@ func move(dir):
 	ray.force_raycast_update()
 	if !ray.is_colliding():
 		movement_tween(dir)
-	elif ray.get_collider() is TileMap or ray.get_collider() is Enemy:
+	elif ray.get_collider() is TileMap:# or ray.get_collider() is Enemy:
 		pass
 
-func _process(delta):
-	if Input.is_action_just_pressed("restart"):
-		get_tree().reload_current_scene()
+#func _process(delta):
+	#if Input.is_action_just_pressed("restart"):
+		#get_tree().reload_current_scene()
 
 func _on_vision_cone_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
 	if body is TileMap:

@@ -19,6 +19,8 @@ var path
 
 var player_in_range
 
+var cooldown := 0
+
 func _ready():
 	super._ready()
 	player = get_tree().get_first_node_in_group("Player")
@@ -72,15 +74,17 @@ func move():
 	
 	path.pop_front()
 	
-	if player_in_range and sleep == false:
+	if player_in_range and sleep == false and cooldown == 0:
 		attack()
 	elif path.size() > 0:
-		if take_turn and sleep == false:
+		if take_turn and sleep == false and cooldown == 0:
 			movement_tween(tile_map.map_to_local(path[0]))
 
 func new_turn(enemy_turn):
 	take_turn = enemy_turn
 	if setup == true and sleep == false:
+		if cooldown > 0:
+			cooldown -= 1
 		move()
 
 func attack():
@@ -88,7 +92,7 @@ func attack():
 		var attack = melee_attack_scene.instantiate()
 		add_child(attack)
 		attack.global_position = player.global_position
-
+		cooldown = 3
 
 func _on_player_detection_area_entered(area):
 	if area is Player:

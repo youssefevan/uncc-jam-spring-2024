@@ -2,6 +2,7 @@ extends Control
 
 func _ready():
 	Global.level += 1
+	print(Global.level)
 	
 	for i in $Pyramid.get_children():
 		i.visible = false
