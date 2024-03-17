@@ -14,7 +14,9 @@ script = ExtResource("1_5i4pp")
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(4, 4)
 texture = ExtResource("2_7elfm")
-region_enabled = true
+hframes = 8
+vframes = 8
+frame = 45
 region_rect = Rect2(40, 40, 8, 8)
 
 [node name="Collider" type="CollisionShape2D" parent="."]

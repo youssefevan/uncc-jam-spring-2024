@@ -98,6 +98,5 @@ func _on_player_detection_area_exited(area):
 	if area is Player:
 		player_in_range = false
 
-func _on_area_entered(area):
-	if area is Attack:
-		call_deferred('free')
+func die():
+	call_deferred('free')

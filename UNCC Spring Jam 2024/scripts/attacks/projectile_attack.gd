@@ -17,6 +17,7 @@ func _on_body_entered(body):
 
 func _on_area_entered(area):
 	if area is Enemy:
+		area.die()
 		hit()
 
 func hit():

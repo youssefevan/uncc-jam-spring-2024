@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://c2ffjbw6h1drn"]
+[gd_scene load_steps=6 format=3 uid="uid://c2ffjbw6h1drn"]
 
 [ext_resource type="Script" path="res://scripts/entities/player.gd" id="1_wntem"]
 [ext_resource type="Texture2D" uid="uid://dohi4lypfryv7" path="res://sprites/tilemap.png" id="2_atmev"]
+[ext_resource type="FontFile" uid="uid://bx5ihofp77q4g" path="res://CCFONT.TTF" id="3_eia0n"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yixlk"]
 size = Vector2(8, 8)
@@ -18,7 +19,9 @@ script = ExtResource("1_wntem")
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(4, 4)
 texture = ExtResource("2_atmev")
-region_enabled = true
+hframes = 8
+vframes = 8
+frame = 36
 region_rect = Rect2(32, 32, 8, 8)
 
 [node name="Collider" type="CollisionShape2D" parent="."]
@@ -28,6 +31,8 @@ shape = SubResource("RectangleShape2D_yixlk")
 [node name="PhysicsRay" type="RayCast2D" parent="."]
 position = Vector2(4, 4)
 target_position = Vector2(0, 8)
+collision_mask = 5
+collide_with_areas = true
 
 [node name="VisionCone" type="Area2D" parent="."]
 collision_layer = 32
@@ -36,6 +41,48 @@ collision_mask = 60
 [node name="Collider" type="CollisionShape2D" parent="VisionCone"]
 position = Vector2(4, 4)
 shape = SubResource("CircleShape2D_wniaq")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Health" type="Sprite2D" parent="CanvasLayer/Control"]
+position = Vector2(12, 12)
+scale = Vector2(2, 2)
+texture = ExtResource("2_atmev")
+hframes = 8
+vframes = 8
+frame = 53
+
+[node name="HealthText" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 4.0
+offset_right = 46.0
+offset_bottom = 20.0
+theme_override_fonts/font = ExtResource("3_eia0n")
+text = "1"
+
+[node name="Coins" type="Sprite2D" parent="CanvasLayer/Control"]
+position = Vector2(52, 12)
+scale = Vector2(2, 2)
+texture = ExtResource("2_atmev")
+hframes = 8
+vframes = 8
+frame = 39
+
+[node name="CoinsText" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 4.0
+offset_right = 100.0
+offset_bottom = 20.0
+theme_override_fonts/font = ExtResource("3_eia0n")
+text = "1"
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_entered" from="VisionCone" to="." method="_on_vision_cone_area_entered"]

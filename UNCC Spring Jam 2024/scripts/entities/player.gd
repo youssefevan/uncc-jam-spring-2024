@@ -2,6 +2,7 @@ extends Area2D
 class_name Player
 
 signal new_turn(enemy_turn)
+signal got_key
 
 @onready var ray = $PhysicsRay
 
@@ -12,8 +13,20 @@ var animation_speed = 6
 var moving = false
 var enemy_turn = false
 
-var has_attack := true
+var has_attack : bool
 var last_move = Vector2.RIGHT
+var has_key := false
+
+var max_health = 4
+var health
+var coins
+
+func _ready():
+	health = Global.player_health
+	coins = Global.player_coins
+	has_attack = Global.player_has_attack
+	has_key = false
+	$CanvasLayer/Control/HealthText.text = str(health)
 
 var inputs = {"right": Vector2.RIGHT,
 			"left": Vector2.LEFT,
@@ -36,7 +49,7 @@ func _physics_process(delta):
 			move(dir)
 
 func _unhandled_input(event):
-	if event.is_action_pressed("attack") and moving == false:
+	if event.is_action_pressed("attack") and moving == false and has_attack == true:
 		create_attack()
 
 func move(dir):
@@ -45,18 +58,12 @@ func move(dir):
 	ray.force_raycast_update()
 	if !ray.is_colliding():
 		movement_tween(dir)
-	elif ray.get_collider() is TileMap:
+	elif ray.get_collider() is TileMap or ray.get_collider() is Enemy:
 		pass
-	elif ray.get_collider() is Entity:
-		if ray.get_collider().push(dir) == true:
-			movement_tween(dir)
 
 func _process(delta):
 	if Input.is_action_just_pressed("restart"):
 		get_tree().reload_current_scene()
-
-func kill():
-	call_deferred("queue_free")
 
 func _on_vision_cone_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
 	if body is TileMap:
@@ -77,13 +84,39 @@ func _on_vision_cone_area_entered(area):
 
 func _on_area_entered(area):
 	if area is Pickup:
-		area.collect()
+		if area is Knife:
+			if has_attack == false:
+				has_attack = true
+				area.collect()
+		elif area is Key:
+			has_key = true
+			emit_signal("got_key")
+			area.collect()
+		elif area is Potion:
+			if health < max_health:
+				health += 1
+				$CanvasLayer/Control/HealthText.text = str(health)
+				area.collect()
+		else:
+			area.collect()
 	
-	if area is Attack:
-		print("hit")
+	elif area is Attack:
+		get_hit()
+	
+	if area is Exit:
+		if area.locked == false:
+			Global.player_health = health
+			Global.player_coins = coins
+			Global.player_has_attack = has_attack
+			print("test")
 
 func create_attack():
+	has_attack = false
 	var attack = attack_scene.instantiate()
 	get_tree().get_root().add_child(attack)
 	attack.player_info(self, last_move)
 	attack.global_position = global_position + last_move * tile_size
+
+func get_hit():
+	health -= 1
+	$CanvasLayer/Control/HealthText.text = str(health)
