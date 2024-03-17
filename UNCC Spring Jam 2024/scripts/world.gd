@@ -19,7 +19,7 @@ func _ready():
 	generate_level()
 
 func generate_level():
-	var walker_starting_position = Vector2(15, 15)
+	var walker_starting_position = Vector2(16, 16)
 	var walker_steps = 400
 	# create new walker, get map, delete walker
 	var walker = Walker.new(walker_starting_position, borders)
