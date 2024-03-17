@@ -20,8 +20,13 @@ var has_key := false
 var max_health = 4
 var health
 var coins
+var dead := false
+
+var prev_sprite_frame
 
 func _ready():
+	dead = false
+	$CanvasLayer/Control/Dead.visible = false
 	health = Global.player_health
 	coins = Global.player_coins
 	has_attack = Global.player_has_attack
@@ -49,7 +54,9 @@ func movement_tween(dir):
 
 func _physics_process(delta):
 	for dir in inputs.keys():
-		if Input.is_action_pressed(dir) and moving == false:
+		if Input.is_action_pressed(dir) and moving == false and dead == false:
+			if $Sprite.frame == 52 and prev_sprite_frame:
+				$Sprite.frame = prev_sprite_frame
 			move(dir)
 
 func _unhandled_input(event):
@@ -129,6 +136,33 @@ func get_hit():
 	$CanvasLayer/Control/HealthText.text = str(health)
 	if health == 0:
 		die()
+	else:
+		prev_sprite_frame = $Sprite.frame
+		$Sprite.frame = 52
+		
 
 func die():
-	call_deferred("free")
+	dead = true
+	$Sprite.frame = 52
+	
+	Global.player_health = 4
+	Global.player_has_attack = false
+	Global.player_coins = 0
+	Global.level = 0
+	
+	await get_tree().create_timer(0.3).timeout
+	$CanvasLayer/Control/Dead.visible = true
+	await get_tree().create_timer(0.3).timeout
+	$CanvasLayer/Control/Dead.visible = false
+	await get_tree().create_timer(0.3).timeout
+	$CanvasLayer/Control/Dead.visible = true
+	await get_tree().create_timer(0.3).timeout
+	$CanvasLayer/Control/Dead.visible = false
+	await get_tree().create_timer(0.3).timeout
+	$CanvasLayer/Control/Dead.visible = true
+	await get_tree().create_timer(0.3).timeout
+	$CanvasLayer/Control/Dead.visible = false
+	await get_tree().create_timer(0.3).timeout
+	$CanvasLayer/Control/Dead.visible = true
+	await get_tree().create_timer(2).timeout
+	get_tree().change_scene_to_file("res://scenes/menu.tscn")

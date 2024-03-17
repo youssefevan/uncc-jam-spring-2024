@@ -84,6 +84,44 @@ theme_override_fonts/font = ExtResource("3_eia0n")
 text = "0
 "
 
+[node name="Dead" type="Control" parent="CanvasLayer/Control"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Dead3" type="Label" parent="CanvasLayer/Control/Dead"]
+layout_mode = 0
+offset_left = 104.0
+offset_top = 117.0
+offset_right = 152.0
+offset_bottom = 133.0
+theme_override_colors/font_color = Color(0.152941, 0.156863, 0.12549, 1)
+theme_override_fonts/font = ExtResource("3_eia0n")
+text = "Dead"
+horizontal_alignment = 1
+
+[node name="Dead2" type="Label" parent="CanvasLayer/Control/Dead"]
+layout_mode = 0
+offset_left = 104.0
+offset_top = 120.0
+offset_right = 152.0
+offset_bottom = 136.0
+theme_override_colors/font_color = Color(0.458824, 0.443137, 0.368627, 1)
+theme_override_fonts/font = ExtResource("3_eia0n")
+text = "Dead"
+horizontal_alignment = 1
+
+[node name="Dead1" type="Label" parent="CanvasLayer/Control/Dead"]
+layout_mode = 0
+offset_left = 104.0
+offset_top = 123.0
+offset_right = 152.0
+offset_bottom = 139.0
+theme_override_fonts/font = ExtResource("3_eia0n")
+text = "Dead"
+horizontal_alignment = 1
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_entered" from="VisionCone" to="." method="_on_vision_cone_area_entered"]
 [connection signal="body_shape_entered" from="VisionCone" to="." method="_on_vision_cone_body_shape_entered"]
