@@ -87,6 +87,7 @@ func _on_area_entered(area):
 		if area is Knife:
 			if has_attack == false:
 				has_attack = true
+				$Sprite.frame = 54
 				area.collect()
 		elif area is Key:
 			has_key = true
@@ -108,10 +109,10 @@ func _on_area_entered(area):
 			Global.player_health = health
 			Global.player_coins = coins
 			Global.player_has_attack = has_attack
-			print("test")
 
 func create_attack():
 	has_attack = false
+	$Sprite.frame = 36
 	var attack = attack_scene.instantiate()
 	get_tree().get_root().add_child(attack)
 	attack.player_info(self, last_move)
@@ -120,3 +121,8 @@ func create_attack():
 func get_hit():
 	health -= 1
 	$CanvasLayer/Control/HealthText.text = str(health)
+	if health == 0:
+		die()
+
+func die():
+	call_deferred("free")
