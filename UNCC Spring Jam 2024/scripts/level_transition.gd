@@ -13,23 +13,28 @@ func animate():
 	for i in range(0, Global.level):
 		$Pyramid.get_children()[i].visible = true
 	
+	$SFX.play()
 	$Pyramid.get_children()[Global.level-1].visible = true
 	await get_tree().create_timer(0.3).timeout
 	$Pyramid.get_children()[Global.level-1].visible = false
 	await get_tree().create_timer(0.3).timeout
 	$Pyramid.get_children()[Global.level-1].visible = true
+	$SFX.play()
 	await get_tree().create_timer(0.3).timeout
 	$Pyramid.get_children()[Global.level-1].visible = false
 	await get_tree().create_timer(0.3).timeout
 	$Pyramid.get_children()[Global.level-1].visible = true
+	$SFX.play()
 	await get_tree().create_timer(0.3).timeout
 	$Pyramid.get_children()[Global.level-1].visible = false
 	await get_tree().create_timer(0.3).timeout
 	$Pyramid.get_children()[Global.level-1].visible = true
+	$SFX.play()
 	await get_tree().create_timer(0.3).timeout
 	$Pyramid.get_children()[Global.level-1].visible = false
 	await get_tree().create_timer(0.3).timeout
 	$Pyramid.get_children()[Global.level-1].visible = true
+	$SFX.play()
 	
 	await get_tree().create_timer(2).timeout
 	get_tree().change_scene_to_file("res://scenes/world.tscn")

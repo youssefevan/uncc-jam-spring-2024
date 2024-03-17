@@ -101,19 +101,23 @@ func _on_area_entered(area):
 				has_attack = true
 				$Sprite.frame = 54
 				area.collect()
+				$Knife.play()
 		elif area is Key:
 			has_key = true
 			emit_signal("got_key")
 			area.collect()
+			$Key.play()
 		elif area is Potion:
 			if health < max_health:
 				health += 1
 				$CanvasLayer/Control/HealthText.text = str(health)
 				area.collect()
+				$OneUp.play()
 		elif area is Coin:
 			coins += 1
 			$CanvasLayer/Control/CoinsText.text = str(coins)
 			area.collect()
+			$Coin.play()
 		else:
 			area.collect()
 	
@@ -136,6 +140,9 @@ func next_level():
 func create_attack():
 	has_attack = false
 	$Sprite.frame = 36
+	
+	$Attack.play()
+	
 	var attack = attack_scene.instantiate()
 	get_parent().add_child(attack)
 	attack.player_info(self, last_move)
@@ -147,6 +154,7 @@ func get_hit():
 	if health == 0:
 		die()
 	else:
+		$GetHurt.play()
 		prev_sprite_frame = $Sprite.frame
 		$Sprite.frame = 52
 		
@@ -154,6 +162,8 @@ func get_hit():
 func die():
 	dead = true
 	$Sprite.frame = 52
+	
+	$Death.play()
 	
 	Global.player_health = 4
 	Global.player_has_attack = false

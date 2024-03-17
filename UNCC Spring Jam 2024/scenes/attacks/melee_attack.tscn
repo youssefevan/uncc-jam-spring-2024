@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://stk0v8vd46qv"]
+[gd_scene load_steps=7 format=3 uid="uid://stk0v8vd46qv"]
 
 [ext_resource type="Script" path="res://scripts/attacks/melee_attack.gd" id="1_bny85"]
 [ext_resource type="Texture2D" uid="uid://dohi4lypfryv7" path="res://sprites/tilemap.png" id="1_rf2n5"]
+[ext_resource type="AudioStream" uid="uid://cl8yegtntv3dt" path="res://sounds/attack.ogg" id="2_gkoup"]
 
 [sub_resource type="Animation" id="Animation_s7h16"]
 resource_name = "rotate"
@@ -45,6 +46,9 @@ z_index = 2
 collision_layer = 64
 collision_mask = 2
 script = ExtResource("1_bny85")
+
+[node name="SFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_gkoup")
 
 [node name="Animator" type="AnimationPlayer" parent="."]
 libraries = {

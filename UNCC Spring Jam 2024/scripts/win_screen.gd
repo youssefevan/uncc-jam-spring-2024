@@ -3,6 +3,7 @@ extends Node2D
 func _ready():
 	$Control/CoinsText.text = str(Global.player_coins)
 	flash()
+	$SFX.play()
 
 func flash():
 	$Pyramid/Level12.visible = true

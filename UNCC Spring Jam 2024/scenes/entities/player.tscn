@@ -1,8 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://c2ffjbw6h1drn"]
+[gd_scene load_steps=13 format=3 uid="uid://c2ffjbw6h1drn"]
 
 [ext_resource type="Script" path="res://scripts/entities/player.gd" id="1_wntem"]
+[ext_resource type="AudioStream" uid="uid://bfl2dai83480" path="res://sounds/level_transition.ogg" id="2_8wwtg"]
+[ext_resource type="AudioStream" uid="uid://blkiiuastut56" path="res://sounds/hurt.ogg" id="2_568io"]
 [ext_resource type="Texture2D" uid="uid://dohi4lypfryv7" path="res://sprites/tilemap.png" id="2_atmev"]
 [ext_resource type="FontFile" uid="uid://bx5ihofp77q4g" path="res://CCFONT.TTF" id="3_eia0n"]
+[ext_resource type="AudioStream" uid="uid://bmjtreav8up7g" path="res://sounds/1up.ogg" id="3_flgs4"]
+[ext_resource type="AudioStream" uid="uid://cl8yegtntv3dt" path="res://sounds/attack.ogg" id="4_tiqnv"]
+[ext_resource type="AudioStream" uid="uid://cqgmxuaouckrg" path="res://sounds/coin.ogg" id="5_hd20p"]
+[ext_resource type="AudioStream" uid="uid://2nc2822uvacm" path="res://sounds/death.ogg" id="7_n48jt"]
+[ext_resource type="AudioStream" uid="uid://nt1c30emh05m" path="res://sounds/knife.ogg" id="8_hgavi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yixlk"]
 size = Vector2(8, 8)
@@ -15,6 +22,30 @@ z_index = 1
 collision_layer = 2
 collision_mask = 89
 script = ExtResource("1_wntem")
+
+[node name="Key" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_8wwtg")
+volume_db = 5.0
+
+[node name="GetHurt" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_568io")
+volume_db = 5.0
+
+[node name="OneUp" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_flgs4")
+
+[node name="Attack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_tiqnv")
+
+[node name="Coin" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_hd20p")
+volume_db = 3.0
+
+[node name="Death" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_n48jt")
+
+[node name="Knife" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_hgavi")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 position = Vector2(4, 4)
